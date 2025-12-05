@@ -5,6 +5,13 @@
       <p class="text-pink-500 text-lg">
         Добро пожаловать в наш милый мир Hello Kitty 💕
       </p>
+      <!-- Кнопка перехода на Search.vue -->
+      <button
+        @click="goToSearch"
+        class="mt-2 bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-lg shadow-md transition duration-200"
+      >
+        🔍 Перейти к поиску заметок
+      </button>
     </div>
   </div>
 </template>
@@ -12,6 +19,11 @@
 <script>
 export default {
   name: "Greeting",
+  methods: {
+    goToSearch() {
+      this.$router.push({ name: "Search" }); // имя маршрута Search.vue
+    },
+  },
 };
 </script>
 

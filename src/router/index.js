@@ -1,10 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 import Login from '../components/Login.vue';
 import Main from '../components/Main.vue';
+import Search from '../components/Search.vue';
+
 
 const routes = [
     { path: '/login', name: 'Login', component: Login },
     { path: '/', name: 'Main', component: Main },
+    { path: '/search', name: 'Search', component: Search},
 ];
 
 const router = createRouter({
