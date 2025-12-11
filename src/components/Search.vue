@@ -3,13 +3,29 @@
 
     <!-- Заголовок -->
     <h1 class="text-3xl font-bold text-pink-600 mb-6 text-center">Мои заметки 💌</h1>
-    <button
+    <div class="flex flex-col md:flex-row items-center gap-3 max-w-md mx-auto mb-6">
+  
+  <input
+    type="text"
+    placeholder="ID статьи"
+    v-model="newNoteArticleId"
+    class="w-full p-3 rounded-lg border border-pink-300 bg-white focus:border-pink-500 outline-none"
+  />
+
+  <input
+    type="text"
+    placeholder="Текст заметки"
+    v-model="newNoteText"
+    class="w-full p-3 rounded-lg border border-pink-300 bg-white focus:border-pink-500 outline-none"
+  />
+
+  <button
     @click="addNote"
-    type="button"
-    class="bg-[#ffffff] p-3 rounded text-lg">+
-    </button>
-    <input type="text" name="articleId" v-model="newNoteArticleId" ></input>
-    <input type="text" name="text" v-model="newNoteText"></input>
+    class="w-12 h-12 flex items-center justify-center bg-pink-500 text-white rounded-full shadow-md hover:bg-pink-600 active:scale-95 transition"
+  >
+    +
+  </button>
+</div>
 
     <!-- Поиск -->
     <div class="flex mb-6 max-w-md mx-auto gap-2">
@@ -29,16 +45,19 @@
     </div>
 
     <!-- Список заметок -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="flex flex-col gap-6">
       <div
         v-for="note in filteredNotes"
         :key="note.id"
         class="bg-white p-4 rounded-xl shadow-lg border border-pink-200 transform transition duration-300 hover:rotate-1 hover:scale-105 hover:shadow-2xl"
       >
-        <p class="text-pink-700 mb-2 break-words">{{ note.id }}__{{ note.text }}</p>
-        <p class="text-xs text-pink-400 text-right">
-          {{ formatDate(note.createdAt) }}
-        </p>
+<p class="text-lg font-semibold text-pink-700 mb-2 break-words">
+  {{ note.text }}
+</p>
+<div class="flex justify-between items-center text-pink-400 text-xs mt-3">
+  <span class="px-2 py-1 bg-pink-100 rounded-full text-[10px]">ID: {{ note.id }}</span>
+  <span>{{ formatDate(note.createdAt) }}</span>
+</div>
       </div>
     </div>
 
@@ -95,6 +114,16 @@ export default {
         alert(result.message);
         }
     },
+    filterNotes() {
+  const q = this.searchQuery.toLowerCase().trim();
+  if (!q) {
+    this.filteredNotes = [...this.noteStore.notes];
+    return;
+  }
+  this.filteredNotes = this.noteStore.notes.filter(note =>
+    note.text.toLowerCase().includes(q)
+  );
+},
     formatDate(date) {
       return new Date(date).toLocaleString("ru-RU", {
         day: "2-digit",
