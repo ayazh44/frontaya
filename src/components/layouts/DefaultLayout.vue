@@ -27,8 +27,8 @@
 <script>
 import { useUserStore } from '../../stores/userStore';
 import { storeToRefs } from 'pinia';
-import { computed } from 'vue';
 
+import { computed } from 'vue';
 export default {
   name: "DefaultLayout",
   data() {
